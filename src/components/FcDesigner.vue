@@ -249,7 +249,7 @@
 <script>
 
 import form from '../config/base/form';
-import field from '../config/base/field';
+import fields from '../config/base/field';
 import validate from '../config/base/validate';
 import {deepCopy} from '@form-create/utils/lib/deepextend';
 import is, {hasProperty} from '@form-create/utils/lib/type';
@@ -282,9 +282,11 @@ export default defineComponent({
         DragForm: designerForm.$form(),
         ViewForm: viewForm.$form(),
     },
-    props: ['menu', 'height', 'config', 'mask', 'locale'],
+    props: ['menu', 'height', 'config', 'mask', 'locale', 'field'],
     setup(props) {
-        const {menu, height, mask, locale} = toRefs(props);
+        const {menu, height, mask, locale, field} = toRefs(props);
+        console.log('setup-height: ', height)
+        console.log('setup-field: ', field)
         const vm = getCurrentInstance();
         const fcx = reactive({active: null});
         provide('fcx', fcx);
@@ -369,7 +371,7 @@ export default defineComponent({
                 }
             },
             baseForm: {
-                rule: tidyRuleConfig(field, baseRule.value, {t}),
+                rule: tidyRuleConfig(field.value || field, baseRule.value, {t}),
                 api: {},
                 value: {},
                 options: {
