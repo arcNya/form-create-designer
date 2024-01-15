@@ -3897,10 +3897,10 @@ const bh = Pn({
           return E(...C);
         if (E.rule) {
           let R = E.rule(...C);
-          return E.append && (R = [...R, ...h(...C)]), E.replace && h(...C).map((O) => {
+          return E.append && (R = [...R, ...h(...C)]), E.replace && (R = h(...C).map((O) => {
             let B = R.find((F) => F.field == O.field);
             return B || O;
-          }), R;
+          })), R;
         }
       }
       return h(...C);

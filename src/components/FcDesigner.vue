@@ -309,7 +309,7 @@ export default defineComponent({
                         rule = [...rule, ...orgRule(...args)];
                     }
                     if (configRule.replace) {
-                        orgRule(...args).map((o) => {
+                        rule = orgRule(...args).map((o) => {
                             let s = rule.find((rs) => rs.field == o.field);
                             if (s) {
                                 return s;
