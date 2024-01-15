@@ -371,7 +371,7 @@ export default defineComponent({
                 }
             },
             baseForm: {
-                rule: tidyRuleConfig(field.value || field, baseRule.value, {t}),
+                rule: tidyRuleConfig(field.value || fields, baseRule.value, {t}),
                 api: {},
                 value: {},
                 options: {
