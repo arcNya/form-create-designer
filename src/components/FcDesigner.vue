@@ -7,7 +7,7 @@
     position: relative;
 }
 
-._fc-designer > .el-main {
+._fc-designer>.el-main {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -24,7 +24,9 @@
     transition: all .3s ease;
 }
 
-._fc-l, ._fc-m, ._fc-r {
+._fc-l,
+._fc-m,
+._fc-r {
     border-top: 1px solid #ECECEC;
     box-sizing: border-box;
 }
@@ -131,36 +133,37 @@
     box-sizing: border-box;
 }
 
-._fc-m-drag, .draggable-drag {
+._fc-m-drag,
+.draggable-drag {
     background: #fff;
     height: 100%;
     position: relative;
 }
 
-._fc-m-drag > form, ._fc-m-drag > form > .el-row {
+._fc-m-drag>form,
+._fc-m-drag>form>.el-row {
     height: 100%;
 }
 </style>
 
 <template>
-    <ElContainer class="_fc-designer" :style="'height:'+dragHeight">
+    <ElContainer class="_fc-designer" :style="'height:' + dragHeight">
         <ElMain>
             <ElContainer style="height: 100%;">
                 <el-aside class="_fc-l" width="266px">
                     <template v-for="(item, index) in menuList" :key="index">
                         <div class="_fc-l-group">
                             <h4 class="_fc-l-title">{{ item.title }}</h4>
-                            <draggable :group="{name:'default', pull:'clone',put:false}" :sort="false"
-                                       itemKey="name"
-                                       :list="item.list">
-                                <template #item="{element}">
+                            <draggable :group="{ name: 'default', pull: 'clone', put: false }" :sort="false" itemKey="name"
+                                :list="item.list">
+                                <template #item="{ element }">
                                     <div class="_fc-l-item">
                                         <div class="_fc-l-icon">
                                             <i class="fc-icon" :class="element.icon || 'icon-input'"></i>
                                         </div>
                                         <span class="_fc-l-name">{{
-                                                t('components.' + element.name + '.name') || element.label
-                                            }}</span>
+                                            t('components.' + element.name + '.name') || element.label
+                                        }}</span>
                                     </div>
                                 </template>
                             </draggable>
@@ -170,18 +173,15 @@
                 <ElContainer class="_fc-m">
                     <el-header class="_fc-m-tools" height="45">
                         <slot name="handle"></slot>
-                        <el-button type="primary" plain round size="small"
-                                   @click="previewFc"><i class="fc-icon icon-preview"></i> {{ t('designer.preview') }}
+                        <el-button type="primary" plain round size="small" @click="previewFc"><i
+                                class="fc-icon icon-preview"></i> {{ t('designer.preview') }}
                         </el-button>
-                        <el-popconfirm
-                            :title="t('designer.clearConfirmTitle')"
-                            width="200px"
+                        <el-popconfirm :title="t('designer.clearConfirmTitle')" width="200px"
                             :confirm-button-text="t('designer.clearConfirm')"
-                            :cancel-button-text="t('designer.clearCancel')"
-                            @confirm="clearDragRule">
+                            :cancel-button-text="t('designer.clearCancel')" @confirm="clearDragRule">
                             <template #reference>
-                                <el-button type="danger" plain round size="small"><i
-                                    class="fc-icon icon-delete"></i>{{ t('designer.clear') }}
+                                <el-button type="danger" plain round size="small"><i class="fc-icon icon-delete"></i>{{
+                                    t('designer.clear') }}
                                 </el-button>
                             </template>
                         </el-popconfirm>
@@ -189,47 +189,40 @@
                     </el-header>
                     <ElMain style="background: #F5F5F5;padding: 20px;">
                         <div class="_fc-m-drag">
-                            <DragForm :rule="dragForm.rule" :option="form.value"
-                                      v-model:api="dragForm.api"></DragForm>
+                            <DragForm :rule="dragForm.rule" :option="form.value" v-model:api="dragForm.api"></DragForm>
                         </div>
                     </ElMain>
                 </ElContainer>
                 <ElAside class="_fc-r" width="320px" v-if="!config || config.showConfig !== false">
                     <ElContainer style="height: 100%;">
                         <el-header height="40px" class="_fc-r-tabs">
-                            <div class="_fc-r-tab" :class="{active: activeTab==='props'}"
-                                 v-if="!!activeRule || (config && config.showFormConfig === false)"
-                                 @click="activeTab='props'"> {{ t('designer.config.component') }}
+                            <div class="_fc-r-tab" :class="{ active: activeTab === 'props' }"
+                                v-if="!!activeRule || (config && config.showFormConfig === false)"
+                                @click="activeTab = 'props'"> {{ t('designer.config.component') }}
                             </div>
                             <div class="_fc-r-tab" v-if="!config || config.showFormConfig !== false"
-                                 :class="{active: activeTab==='form' && !!activeRule}"
-                                 @click="activeTab='form'">{{ t('designer.config.form') }}
+                                :class="{ active: activeTab === 'form' && !!activeRule }" @click="activeTab = 'form'">{{
+                                    t('designer.config.form') }}
                             </div>
                         </el-header>
-                        <ElMain v-show="activeTab==='form'" v-if="!config || config.showFormConfig !== false">
-                            <DragForm :rule="form.rule" :option="form.option"
-                                      v-model="form.value.form" v-model:api="form.api"></DragForm>
+                        <ElMain v-show="activeTab === 'form'" v-if="!config || config.showFormConfig !== false">
+                            <DragForm :rule="form.rule" :option="form.option" v-model="form.value.form"
+                                v-model:api="form.api"></DragForm>
                         </ElMain>
-                        <ElMain v-show="activeTab==='props'" style="padding: 0 20px;"
-                                :key="activeRule ? activeRule._id: ''">
+                        <ElMain v-show="activeTab === 'props'" style="padding: 0 20px;"
+                            :key="activeRule ? activeRule._id : ''">
                             <div>
                                 <ElDivider v-if="showBaseRule">{{ t('designer.config.rule') }}</ElDivider>
-                                <DragForm v-show="showBaseRule" v-model:api="baseForm.api"
-                                          :rule="baseForm.rule"
-                                          :option="baseForm.options"
-                                          :modelValue="baseForm.value"
-                                          @change="baseChange"></DragForm>
+                                <DragForm v-show="showBaseRule" v-model:api="baseForm.api" :rule="baseForm.rule"
+                                    :option="baseForm.options" :modelValue="baseForm.value" @change="baseChange"></DragForm>
                                 <ElDivider>{{ t('designer.config.props') }}</ElDivider>
-                                <DragForm v-model:api="propsForm.api" :rule="propsForm.rule"
-                                          :option="propsForm.options"
-                                          :modelValue="propsForm.value"
-                                          @change="propChange" @removeField="propRemoveField"></DragForm>
+                                <DragForm v-model:api="propsForm.api" :rule="propsForm.rule" :option="propsForm.options"
+                                    :modelValue="propsForm.value" @change="propChange" @removeField="propRemoveField">
+                                </DragForm>
                                 <ElDivider v-if="showBaseRule">{{ t('designer.config.validate') }}</ElDivider>
-                                <DragForm v-show="showBaseRule" v-model:api="validateForm.api"
-                                          :rule="validateForm.rule"
-                                          :option="validateForm.options"
-                                          :modelValue="validateForm.value"
-                                          @update:modelValue="validateChange"></DragForm>
+                                <DragForm v-show="showBaseRule" v-model:api="validateForm.api" :rule="validateForm.rule"
+                                    :option="validateForm.options" :modelValue="validateForm.value"
+                                    @update:modelValue="validateChange"></DragForm>
                             </div>
                         </ElMain>
                     </ElContainer>
@@ -242,14 +235,12 @@
     </ElContainer>
 </template>
 
-<style>
-
-</style>
+<style></style>
 
 <script>
 
 import form from '../config/base/form';
-import fields from '../config/base/field';
+import field from '../config/base/field';
 import validate from '../config/base/validate';
 import {deepCopy} from '@form-create/utils/lib/deepextend';
 import is, {hasProperty} from '@form-create/utils/lib/type';
@@ -282,11 +273,10 @@ export default defineComponent({
         DragForm: designerForm.$form(),
         ViewForm: viewForm.$form(),
     },
-    props: ['menu', 'height', 'config', 'mask', 'locale', 'field'],
+    props: ['menu', 'height', 'config', 'mask', 'locale'],
     setup(props) {
-        const {menu, height, mask, locale, field} = toRefs(props);
-        console.log('setup-height: ', height)
-        console.log('setup-field: ', field)
+        const {menu, height, mask, locale} = toRefs(props);
+
         const vm = getCurrentInstance();
         const fcx = reactive({active: null});
         provide('fcx', fcx);
@@ -317,6 +307,15 @@ export default defineComponent({
                     let rule = configRule.rule(...args);
                     if (configRule.append) {
                         rule = [...rule, ...orgRule(...args)];
+                    }
+                    if (configRule.replace) {
+                        orgRule(...args).map((o) => {
+                            let s = rule.find((rs) => rs.field == o.field);
+                            if (s) {
+                                return s;
+                            }
+                            return o;
+                        })
                     }
                     return rule;
                 }
@@ -371,7 +370,7 @@ export default defineComponent({
                 }
             },
             baseForm: {
-                rule: tidyRuleConfig(field.value || fields, baseRule.value, {t}),
+                rule: tidyRuleConfig(field, baseRule.value, {t}),
                 api: {},
                 value: {},
                 options: {

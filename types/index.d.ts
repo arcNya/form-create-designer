@@ -1,6 +1,6 @@
-import {Rule} from "@form-create/element-ui";
+import { Rule } from "@form-create/element-ui";
 import FormCreate from "@form-create/element-ui";
-import {Component, Plugin, Ref} from "@vue/runtime-core";
+import { Component, Plugin, Ref } from "@vue/runtime-core";
 
 export interface MenuItem {
     label: string,
@@ -18,13 +18,14 @@ export interface Config {
     showBaseForm?: Boolean;
     showConfig?: Boolean;
     showFormConfig?: Boolean;
-    baseRule?: (arg: { t: Object }) => Rule[] | { rule: (arg: { t: Object }) => Rule[], append?: boolean };
-    validateRule?: (arg: { t: Object }) => Rule[] | { rule: (arg: { t: Object }) => Rule[], append?: boolean };
-    formRule?: (arg: { t: Object }) => Rule[] | { rule: (arg: { t: Object }) => Rule[], append?: boolean };
+    baseRule?: (arg: { t: Object }) => Rule[] | { rule: (arg: { t: Object }) => Rule[], append?: boolean, replace?: boolean };
+    validateRule?: (arg: { t: Object }) => Rule[] | { rule: (arg: { t: Object }) => Rule[], append?: boolean, replace?: boolean };
+    formRule?: (arg: { t: Object }) => Rule[] | { rule: (arg: { t: Object }) => Rule[], append?: boolean, replace?: boolean };
     componentRule?: {
         [name: string]: (rule: Object, arg: { t: Object }) => Rule[] | {
             rule: (rule: Object, arg: { t: Object }) => Rule[],
-            append?: boolean
+            append?: boolean,
+            replace?: boolean
         }
     };
 }
