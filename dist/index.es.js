@@ -4190,7 +4190,7 @@ const bh = Pn({
       },
       baseChange(h, E, C, R) {
         var O, B, F;
-        v.activeRule && R[v.activeRule._id] === v.activeRule && (y.unWatchActiveRule(), v.activeRule[h] = E, y.watchActiveRule(), (F = (B = (O = v.activeRule.config.config) == null ? void 0 : O.watch) == null ? void 0 : B["$" + h]) == null || F.call(B, {
+        console.log("data", v.activeRule), console.log("fapi", R), v.activeRule && R[v.activeRule._id] === v.activeRule && (y.unWatchActiveRule(), v.activeRule[h] = E, y.watchActiveRule(), (F = (B = (O = v.activeRule.config.config) == null ? void 0 : O.watch) == null ? void 0 : B["$" + h]) == null || F.call(B, {
           field: h,
           value: E,
           api: R,

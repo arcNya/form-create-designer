@@ -746,6 +746,8 @@ export default defineComponent({
                 }, []);
             },
             baseChange(field, value, _, fapi) {
+                console.log('data', data.activeRule)
+                console.log('fapi', fapi)
                 if (data.activeRule && fapi[data.activeRule._id] === data.activeRule) {
                     methods.unWatchActiveRule();
                     data.activeRule[field] = value;
