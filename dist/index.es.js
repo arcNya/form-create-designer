@@ -4197,6 +4197,9 @@ const bh = Pn({
           rule: v.activeRule
         }));
       },
+      editChange(h, E) {
+        v.activeRule && (y.unWatchActiveRule(), v.activeRule[h] = E, y.watchActiveRule());
+      },
       propRemoveField(h, E, C) {
         var R, O, B;
         if (v.activeRule && C[v.activeRule._id] === v.activeRule) {

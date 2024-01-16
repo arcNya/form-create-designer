@@ -760,6 +760,13 @@ export default defineComponent({
                     });
                 }
             },
+            editChange(field, value) {
+                if (data.activeRule) {
+                    methods.unWatchActiveRule();
+                    data.activeRule[field] = value;
+                    methods.watchActiveRule();
+                }
+            },
             propRemoveField(field, _, fapi) {
                 if (data.activeRule && fapi[data.activeRule._id] === data.activeRule) {
                     methods.unWatchActiveRule();
