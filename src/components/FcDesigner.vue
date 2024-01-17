@@ -171,7 +171,7 @@
                     </template>
                 </el-aside>
                 <ElContainer class="_fc-m">
-                    <el-header class="_fc-m-tools" height="45">
+                    <!-- <el-header class="_fc-m-tools" height="45">
                         <slot name="handle"></slot>
                         <el-button type="primary" plain round size="small" @click="previewFc"><i
                                 class="fc-icon icon-preview"></i> {{ t('designer.preview') }}
@@ -186,7 +186,7 @@
                             </template>
                         </el-popconfirm>
 
-                    </el-header>
+                    </el-header> -->
                     <ElMain style="background: #F5F5F5;padding: 20px;">
                         <div class="_fc-m-drag">
                             <DragForm :rule="dragForm.rule" :option="form.value" v-model:api="dragForm.api"></DragForm>

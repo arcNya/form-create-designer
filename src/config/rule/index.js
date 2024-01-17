@@ -44,7 +44,7 @@ const ruleList = {
     [tabPane.name]: tabPane,
     [divider.name]: divider,
     [cascader.name]: cascader,
-    [upload.name]: upload,
+    // [upload.name]: upload,
     [transfer.name]: transfer,
     [tree.name]: tree,
     [alert.name]: alert,
